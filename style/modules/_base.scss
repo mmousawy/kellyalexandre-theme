@@ -1,0 +1,6 @@
+.wrapper {
+  max-width: $sz-max-width;
+  width: 100%;
+  margin: 0 auto;
+  padding: $sz-padding calc(#{$sz-padding} + 30px);
+}

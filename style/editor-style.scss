@@ -1,0 +1,5 @@
+@import 'variables';
+
+.wp-block {
+  max-width: 1280px - $sz-image-margin;
+}

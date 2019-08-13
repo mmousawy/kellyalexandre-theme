@@ -1,0 +1,38 @@
+.page-header {
+  position: fixed;
+  z-index: 2;
+  top: 1rem;
+  width: 100%;
+
+  .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: $sz-max-width;
+    height: 5rem;
+  }
+
+  @include bp(small) {
+    top: 0;
+  }
+}
+
+.site-title {
+  z-index: 101;
+  position: relative;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin: 0;
+  line-height: .9;
+  text-indent: -2px;
+
+  a {
+    text-decoration: none;
+    line-height: 1;
+    display: block;
+  }
+
+  @include bp(small) {
+    font-size: 1.75rem
+  }
+}

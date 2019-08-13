@@ -1,0 +1,7 @@
+a {
+  color: $cl-primary;
+
+  &:hover {
+    color: lighten($cl-primary, 20%);
+  }
+}

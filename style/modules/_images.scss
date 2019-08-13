@@ -1,0 +1,26 @@
+.wp-block-image,
+.wp-block-image.is-resized {
+  margin: {
+    top: $sz-image-margin / 2;
+    right: $sz-image-margin / 2;
+    bottom: 0;
+  }
+}
+
+.wp-block-image {
+  display: inline;
+
+  &.is-resized {
+    float: left;
+  }
+
+  &.alignwide {
+    padding-top: $sz-image-margin / 2;
+    display: block;
+    clear: both;
+  }
+
+  img {
+    display: block;
+  }
+}
