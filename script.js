@@ -82,4 +82,31 @@
   }
 
   scrollHandler();
+
+  const preferredMode = window.matchMedia('(prefers-color-scheme: dark)');
+
+  preferredMode.addListener(updateColorScheme);
+  updateColorScheme();
+
+  function updateColorScheme(event) {
+    let darkMode = false;
+
+    if (!event) {
+      darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    } else {
+      darkMode = event.matches;
+    }
+
+    var link = document.querySelector("link[rel*='icon']") || document.createElement('link');
+    link.type = 'image/x-icon';
+    link.rel = 'shortcut icon';
+
+    if (darkMode) {
+      link.href = '/favicon-light.ico';
+    } else {
+      link.href = '/favicon.ico';
+    }
+
+    document.querySelector('head').appendChild(link);
+  }
 })();
