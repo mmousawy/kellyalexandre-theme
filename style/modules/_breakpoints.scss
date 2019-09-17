@@ -36,7 +36,7 @@
 	}
 
 	@if ($size == large) {
-		@media (min-width: 62rem) {
+		@media (min-width: $sz-small) {
 			@content;
 		}
 	}

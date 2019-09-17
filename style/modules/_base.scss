@@ -2,5 +2,9 @@
   max-width: $sz-max-width;
   width: 100%;
   margin: 0 auto;
-  padding: $sz-padding calc(#{$sz-padding} + 30px);
+  padding: $sz-padding $sz-padding;
+}
+
+.no-scroll {
+  overflow: hidden !important;
 }

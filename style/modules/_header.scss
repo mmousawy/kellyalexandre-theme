@@ -1,15 +1,21 @@
 .page-header {
   position: fixed;
   z-index: 2;
-  top: 1rem;
+  top: 0;
   width: 100%;
 
   .wrapper {
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: space-between;
     max-width: $sz-max-width;
-    height: 5rem;
+    height: 8rem;
+    padding: $sz-padding;
+
+    @include bp(small) {
+      height: 5rem;
+    }
   }
 
   @include bp(small) {
@@ -24,15 +30,28 @@
   text-transform: uppercase;
   margin: 0;
   line-height: .9;
-  text-indent: -2px;
+  margin-left: -.25em;
 
   a {
+    display: block;
+    padding: .125em .25em;
+    background: $cl-white;
     text-decoration: none;
     line-height: 1;
-    display: block;
+    // transition: color 300ms ease-in-out;
+    transition: opacity 300ms ease-in-out;
   }
 
   @include bp(small) {
-    font-size: 1.75rem
+    font-size: 1.75rem;
+  }
+
+  @include bp(x-small) {
+    font-size: 1.5rem;
+  }
+
+  &.is-inverted a {
+    // color: $cl-white;
+    opacity: 0;
   }
 }

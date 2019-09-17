@@ -1,48 +1,34 @@
 .menu-holder {
   z-index: 100;
   position: fixed;
+  display: flex;
+  justify-content: center;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: transparentize($cl-menu, .05);
-  opacity: 0;
-  transition: opacity .3s;
+  transition: opacity .3s ease-in-out;
   pointer-events: none;
   backface-visibility: hidden;
+  display: none;
+
+  &.is-active {
+    display: block;
+  }
 
   &.is-open {
-    opacity: 1;
     pointer-events: auto;
   }
 
-  .wrapper {
+  .wrap {
     position: relative;
-    height: 100%;
-  }
-
-  .menu-button--close {
-    position: absolute;
-    top: 2.25rem;
-    right: calc(#{$sz-padding} + 30px);
-    width: 2.5rem;
-    height: 2.5rem;
-    margin: 0;
-    border: 0;
-    border-radius: 50%;
-    background: svg-uri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{$cl-foreground}" d="M5.6 4.2L4.2 5.6l6.4 6.4-6.4 6.4 1.4 1.4 6.4-6.4 6.4 6.4 1.4-1.4-6.4-6.4 6.4-6.4-1.4-1.4-6.4 6.4z"/></svg>');
-    background-repeat: no-repeat;
-    background-size: 1.5rem;
-    background-position: 50%;
-    cursor: pointer;
-
-    @include bp(small) {
-      top: 1.25rem;
-    }
+    display: flex;
+    flex-direction: column;
   }
 }
 
 .menu-button {
+  flex-shrink: 0;
   -webkit-appearance: none;
   -moz-appearance: none;
   -ms-appearance: none;
@@ -53,57 +39,127 @@
   width: 2.5rem;
   height: 2.5rem;
   margin: 0;
+  margin-right: -.5rem;
   border: 0;
-  border-radius: 50%;
-  background: $cl-white svg-uri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{$cl-foreground}" d="M2 5v2h20V5zm0 6v2h20v-2z"/></svg>');
+  // border-radius: 50%;
+  background: $cl-white svg-uri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{$cl-primary}" d="M2 5v2h20V5zm0 6v2h20v-2z"/></svg>');
   background-repeat: no-repeat;
   background-size: 1.5rem;
   background-position: 50% 66.6%;
   cursor: pointer;
   outline: none;
-  transition: opacity 200ms;
+  transition: opacity 200ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    filter: brightness(2);
+  }
 
   &:checked {
     opacity: 0;
+
+    + .menu-button--close {
+      opacity: 1;
+    }
+  }
+}
+
+.menu-button--close {
+  z-index: 101;
+  position: absolute;
+  right: $sz-padding;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0;
+  margin-right: -.5rem;
+  border: 0;
+  border-radius: 50%;
+  background-image: svg-uri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{$cl-primary}" d="M5.6 4.2L4.2 5.6l6.4 6.4-6.4 6.4 1.4 1.4 6.4-6.4 6.4 6.4 1.4-1.4-6.4-6.4 6.4-6.4-1.4-1.4-6.4 6.4z"/></svg>');
+  background-repeat: no-repeat;
+  background-size: 1.5rem;
+  background-position: 50%;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 200ms ease-in-out;
+
+  &:hover,
+  &:focus {
+    filter: brightness(2);
+  }
+
+  @include bp(small) {
+    top: 1.25rem;
+    background-image: svg-uri('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="#{$cl-white}" d="M5.6 4.2L4.2 5.6l6.4 6.4-6.4 6.4 1.4 1.4 6.4-6.4 6.4 6.4 1.4-1.4-6.4-6.4 6.4-6.4-1.4-1.4-6.4 6.4z"/></svg>');
   }
 }
 
 .menu-container {
+  z-index: 2;
+  position: relative;
   width: 100%;
   height: 100%;
+  border: 2rem solid $cl-white;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  overflow: hidden;
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-
-    margin-left: -5%;
-    margin-top: -5%;
+  h2 {
+    display: inline-block;
+    position: relative;
+    margin: .5rem .5rem 2rem;
+    padding: .25rem;
+    font-family: 'Karla', sans-serif;
+    font-size: calc(.5vw + 1.25rem);
+    line-height: 1.2;
+    font-weight: normal;
 
     &::before {
       content: '';
+      display: inline-block;
       position: absolute;
-      margin-left: .75rem;
-      margin-top: -1rem;
-      width: 50%;
+      top: 100%;
+      right: 100%;
+      margin-top: 1rem;
+      width: 100vw;
       height: 2px;
       background: $cl-primary;
       opacity: 0;
       animation-fill-mode: both;
       animation-duration: 200ms;
+
+      @include bp(small) {
+        left: unset;
+        right: 100%;
+      }
     }
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  @include bp(small) {
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 100%;
+    top: 0;
+    border: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 }
 
-.show-items .menu-container ul::before {
+
+.show-items .menu-container .menu-container__commissioned h2::before,
+.show-items .menu-container .menu-container__personal h2::before {
   animation-name: menuLine;
 }
 
 .menu-container li {
+  position: relative;
+  font-size: calc(.5vw + 1.25rem);
   animation-fill-mode: both;
   animation-duration: 200ms;
   opacity: 0;
@@ -115,13 +171,13 @@
   }
 
   a {
-    display: block;
+    display: inline-block;
     padding: .25rem;
     margin: .5rem;
-    font-size: 1.25rem;
     text-transform: uppercase;
     text-decoration: none;
     font-weight: 500;
+    line-height: 1.2;
   }
 
   &.menu-main {
@@ -134,6 +190,120 @@
 
   .show-items & {
     animation-name: menuFadeIn;
+  }
+
+  &.current-menu-item {
+    background-image: svg-uri('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#{$cl-white}"/></svg>');
+    background-repeat: no-repeat;
+    background-size: .25em;
+    background-position: 0 50%;
+    padding-left: .75em;
+    left: -.75em;
+  }
+}
+
+.menu-container__commissioned,
+.menu-container__personal {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 300ms ease-in-out;
+  overflow-y: auto;
+
+  .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto 0;
+    padding: 5rem 0;
+    width: 100%;
+    max-width: $sz-max-width / 2;
+  }
+
+  .is-open & {
+    transform: translateX(0);
+  }
+
+  @include bp(small) {
+    flex-shrink: 0;
+    flex-grow: 1;
+    width: 100%;
+    height: auto;
+
+    .wrap {
+      padding: 0;
+    }
+
+    .wrap-inside {
+      width: 100%;
+      max-width: calc(100% - 6rem);
+    }
+  }
+}
+
+.menu-container__commissioned {
+  background: transparentize($cl-black, .15);
+  color: $cl-white;
+  transform: translateX(-105%);
+
+  .wrap {
+    margin-left: auto;
+  }
+
+  h2 {
+    &::before {
+      right: .25rem;
+      background-color: $cl-white;
+    }
+  }
+
+  .menu-item a {
+    color: $cl-white;
+
+    &:focus,
+    &:hover {
+      opacity: .7;
+    }
+  }
+
+  @include bp(small) {
+    padding: 5rem 1rem 2rem;
+    margin-bottom: 0;
+  }
+}
+
+.menu-container__personal {
+  background: transparentize(#EFF0F1, .15);
+  transform: translateX(105%);
+
+  h2 {
+    &::before {
+      left: .25rem;
+    }
+  }
+
+  li {
+    &.current-menu-item {
+      background-image: svg-uri('<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="50" fill="#{$cl-primary}"/></svg>');
+    }
+  }
+
+  .wrap {
+    margin-right: auto;
+  }
+
+  @include bp(small) {
+    padding: 2rem 1rem;
+
+    h2 {
+      &::before {
+        left: unset;
+        right: 0;
+      }
+    }
   }
 }
 
@@ -151,7 +321,31 @@
 
 @keyframes menuLine {
   0% {
-    transform: translateX(50%);
+    transform: translateY(-.25rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes menuLineLeft{
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+
+  100% {
+    transform: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes menuLineRight {
+  0% {
+    transform: translateX(-5rem);
     opacity: 0;
   }
 

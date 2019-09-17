@@ -14,15 +14,30 @@
   <div class="wrapper">
     <p class="site-title"><a href="<?= get_home_url() ?>"><?= get_bloginfo('title'); ?></a></p>
     <input type="checkbox" class="menu-button" id="menu-button">
+    <label class="menu-button--close" for="menu-button"></label>
     <div class="menu-holder">
-      <div class="wrapper">
-        <nav class="menu-container">
-          <?= wp_nav_menu([
-            'theme_location' => 'main-menu'
-          ]); ?>
-        </nav>
-        <label class="menu-button--close" for="menu-button"></label>
-      </div>
+      <nav class="menu-container no-scroll">
+        <div class="menu-container__commissioned">
+          <div class="wrap">
+            <div class="wrap-inside">
+              <h2>COMMISSIONED</h2>
+              <?= wp_nav_menu([
+                'theme_location' => 'main-menu-commissioned'
+              ]); ?>
+            </div>
+          </div>
+        </div>
+        <div class="menu-container__personal">
+          <div class="wrap">
+            <div class="wrap-inside">
+              <h2>PERSONAL</h2>
+              <?= wp_nav_menu([
+                'theme_location' => 'main-menu-personal'
+              ]); ?>
+            </div>
+          </div>
+        </div>
+      </nav>
     </div>
   </div>
 </header>
